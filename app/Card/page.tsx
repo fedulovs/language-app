@@ -2,31 +2,47 @@ import React, { useState } from 'react';
 import TinderCard from 'react-tinder-card';
 import './style.css';
 
-const db = [
-    {
-        name: 'Richard Hendricks',
-        url: './img/richard.jpg',
-    },
-    {
-        name: 'Erlich Bachman',
-        url: './img/erlich.jpg',
-    },
-    {
-        name: 'Monica Hall',
-        url: './img/monica.jpg',
-    },
-    {
-        name: 'Jared Dunn',
-        url: './img/jared.jpg',
-    },
-    {
-        name: 'Dinesh Chugtai',
-        url: './img/dinesh.jpg',
-    },
-];
+interface Character {
+    name: string;
+    answer: string;
+    url: string;
+    isOpened: boolean;
+}
 
-function Card() {
-    const characters = db;
+const Card: React.FC = () => {
+    const [characters, setCharacters] = useState<Character[]>([
+        {
+            name: 'One',
+            answer: 'Yksi',
+            url: './img/richard.jpg',
+            isOpened: false,
+        },
+        {
+            name: 'Two',
+            answer: 'Kaksi',
+            url: './img/erlich.jpg',
+            isOpened: false,
+        },
+        {
+            name: 'Three',
+            answer: 'Kolme',
+            url: './img/monica.jpg',
+            isOpened: false,
+        },
+        {
+            name: 'Four',
+            answer: 'Nelja',
+            url: './img/jared.jpg',
+            isOpened: false,
+        },
+        {
+            name: 'Five',
+            answer: 'Viisi',
+            url: './img/dinesh.jpg',
+            isOpened: false,
+        },
+    ]);
+
     const [lastDirection, setLastDirection] = useState();
 
     const swiped = (direction: any, nameToDelete: any) => {
@@ -38,9 +54,18 @@ function Card() {
         console.log(name + ' left the screen!');
     };
 
+    const openCard = (characterName: string): void => {
+        setCharacters((prevCharacters) =>
+            prevCharacters.map((character) =>
+                character.name === characterName
+                    ? { ...character, isOpened: !character.isOpened }
+                    : character
+            )
+        );
+    };
+
     return (
         <div className='pageContainer'>
-            <div className='titleContainer'></div>
             <div className='cardContainer'>
                 {characters.map((character) => (
                     <TinderCard
@@ -48,16 +73,26 @@ function Card() {
                         key={character.name}
                         onSwipe={(dir) => swiped(dir, character.name)}
                         onCardLeftScreen={() => outOfFrame(character.name)}
+                        preventSwipe={['up', 'down']}
                     >
-                        <div className='cardWrapper'>
+                        <div
+                            className='cardWrapper'
+                            onClick={() => openCard(character.name)}
+                        >
                             <div
-                                style={{
-                                    backgroundImage:
-                                        'url(' + character.url + ')',
-                                }}
+                                style={
+                                    {
+                                        // backgroundImage:
+                                        //     'url(' + character.url + ')',
+                                    }
+                                }
                                 className='card'
                             >
-                                <h3>{character.name}</h3>
+                                {character.isOpened ? (
+                                    <h3 className='word'>{character.answer}</h3>
+                                ) : (
+                                    <h3 className='word'>{character.name}</h3>
+                                )}
                             </div>
                         </div>
                     </TinderCard>
@@ -70,6 +105,6 @@ function Card() {
             )}
         </div>
     );
-}
+};
 
 export default Card;
