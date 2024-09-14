@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import TinderCard from 'react-tinder-card';
 import './style.css';
@@ -9,7 +10,13 @@ interface Character {
     isOpened: boolean;
 }
 
-const Card: React.FC = () => {
+interface CardProps {
+    params: {
+        categoryName: string;
+    };
+}
+
+const Card: React.FC<CardProps> = ({ params }) => {
     const [characters, setCharacters] = useState<Character[]>([
         {
             name: 'One',
@@ -66,6 +73,7 @@ const Card: React.FC = () => {
 
     return (
         <div className='pageContainer'>
+            <h2 className='categoryNameHeader'>{params.categoryName}</h2>
             <div className='cardContainer'>
                 {characters.map((character) => (
                     <TinderCard
@@ -82,6 +90,7 @@ const Card: React.FC = () => {
                             <div
                                 style={
                                     {
+                                        /* Image will be added later */
                                         // backgroundImage:
                                         //     'url(' + character.url + ')',
                                     }

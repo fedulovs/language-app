@@ -2,12 +2,13 @@
 
 import Image from 'next/image';
 import styles from './page.module.css';
-import Card from './Card/page';
+import Card from './card/page';
+import Categories from './categories/page';
 
 export default function Home() {
     return (
         <>
-            <Card></Card>{' '}
+            <Categories></Categories>
         </>
     );
 }
