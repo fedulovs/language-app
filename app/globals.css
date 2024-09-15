@@ -16,7 +16,7 @@ html,
 body {
     max-width: var(--container-width);
     background-color: var(--color-container);
-    max-height: 100vh;
+    /* max-height: 100vh; */
     overflow-x: hidden;
     margin: 8px auto;
 }

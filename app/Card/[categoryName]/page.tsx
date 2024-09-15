@@ -1,14 +1,8 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TinderCard from 'react-tinder-card';
+import { categories, Word } from '@/data/categories';
 import './style.css';
-
-interface Character {
-    name: string;
-    answer: string;
-    url: string;
-    isOpened: boolean;
-}
 
 interface CardProps {
     params: {
@@ -17,40 +11,17 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ params }) => {
-    const [characters, setCharacters] = useState<Character[]>([
-        {
-            name: 'One',
-            answer: 'Yksi',
-            url: './img/richard.jpg',
-            isOpened: false,
-        },
-        {
-            name: 'Two',
-            answer: 'Kaksi',
-            url: './img/erlich.jpg',
-            isOpened: false,
-        },
-        {
-            name: 'Three',
-            answer: 'Kolme',
-            url: './img/monica.jpg',
-            isOpened: false,
-        },
-        {
-            name: 'Four',
-            answer: 'Nelja',
-            url: './img/jared.jpg',
-            isOpened: false,
-        },
-        {
-            name: 'Five',
-            answer: 'Viisi',
-            url: './img/dinesh.jpg',
-            isOpened: false,
-        },
-    ]);
+    const [characters, setCharacters] = useState<Word[]>([]);
+    const [lastDirection, setLastDirection] = useState<string | undefined>();
 
-    const [lastDirection, setLastDirection] = useState();
+    useEffect(() => {
+        const selectedCategory = categories.find(
+            (cat) => cat.category === params.categoryName
+        );
+        if (selectedCategory) {
+            setCharacters(selectedCategory.words);
+        }
+    }, [params.categoryName]);
 
     const swiped = (direction: any, nameToDelete: any) => {
         console.log('removing: ' + nameToDelete);
@@ -90,9 +61,7 @@ const Card: React.FC<CardProps> = ({ params }) => {
                             <div
                                 style={
                                     {
-                                        /* Image will be added later */
-                                        // backgroundImage:
-                                        //     'url(' + character.url + ')',
+                                        // backgroundImage: 'url(' + character.url + ')',
                                     }
                                 }
                                 className='card'
