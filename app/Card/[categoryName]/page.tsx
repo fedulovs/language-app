@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import TinderCard from 'react-tinder-card';
 import { categories, Word } from '@/data/categories';
+import Navigation from '@/app/navigation/navigation';
 import './style.css';
 
 interface CardProps {
@@ -48,7 +49,7 @@ const Card: React.FC<CardProps> = ({ params }) => {
 
     return (
         <div className='pageContainer'>
-            <h2 className='categoryNameHeader'>{headerText}</h2>
+            <Navigation headerText={headerText} />
             <div className='cardContainer'>
                 {characters.map((character) => (
                     <TinderCard

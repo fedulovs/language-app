@@ -1,0 +1,15 @@
+.headerContainer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.categoryNameHeader {
+    color: var(--color-white);
+}
+
+.backButton {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+}
