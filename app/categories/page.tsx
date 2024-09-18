@@ -4,8 +4,6 @@ import { categories } from '@/data/categories';
 import './style.css';
 
 const Categories: React.FC = () => {
-    const openCardView = (categoryName: string) => {};
-
     return (
         <div className='pageContainer'>
             <div className='headerContainer'>
@@ -15,11 +13,7 @@ const Categories: React.FC = () => {
             <div className='categoryGrid'>
                 {categories.map((category) => (
                     <Link href={`/card/${category.category}`}>
-                        <div
-                            className='category'
-                            key={category.category}
-                            onClick={() => openCardView(category.category)}
-                        >
+                        <div className='category' key={category.category}>
                             <p className='categoryName'>{category.category}</p>
                         </div>
                     </Link>

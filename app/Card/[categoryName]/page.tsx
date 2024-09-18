@@ -14,6 +14,10 @@ const Card: React.FC<CardProps> = ({ params }) => {
     const [characters, setCharacters] = useState<Word[]>([]);
     const [lastDirection, setLastDirection] = useState<string | undefined>();
 
+    // Decode the parameter to replace '%20' with spaces
+    const undecodedHeaderText = params.categoryName;
+    const headerText = decodeURIComponent(undecodedHeaderText || '');
+
     useEffect(() => {
         const selectedCategory = categories.find(
             (cat) => cat.category === params.categoryName
@@ -44,7 +48,7 @@ const Card: React.FC<CardProps> = ({ params }) => {
 
     return (
         <div className='pageContainer'>
-            <h2 className='categoryNameHeader'>{params.categoryName}</h2>
+            <h2 className='categoryNameHeader'>{headerText}</h2>
             <div className='cardContainer'>
                 {characters.map((character) => (
                     <TinderCard
