@@ -17,11 +17,11 @@ const Card: React.FC<CardProps> = ({ params }) => {
 
     // Decode the parameter to replace '%20' with spaces
     const undecodedHeaderText = params.categoryName;
-    const headerText = decodeURIComponent(undecodedHeaderText || '');
+    const decodedCategoryName = decodeURIComponent(undecodedHeaderText || '');
 
     useEffect(() => {
         const selectedCategory = categories.find(
-            (cat) => cat.category === params.categoryName
+            (cat) => cat.category === decodedCategoryName
         );
         if (selectedCategory) {
             setCharacters(selectedCategory.words);
@@ -49,7 +49,7 @@ const Card: React.FC<CardProps> = ({ params }) => {
 
     return (
         <div className='pageContainer'>
-            <Navigation headerText={headerText} />
+            <Navigation headerText={decodedCategoryName} />
             <div className='cardContainer'>
                 {characters.map((character) => (
                     <TinderCard
