@@ -7,6 +7,7 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
     title: 'Learn new words',
     description: 'Language learning app',
+    manifest: '/manifest.json', // No idea if it works
 };
 
 export default function RootLayout({
