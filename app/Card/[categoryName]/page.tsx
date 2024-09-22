@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import TinderCard from 'react-tinder-card';
 import { categories, Word } from '@/data/categories';
 import Navigation from '@/app/navigation/navigation';
-import './style.css';
+import styles from './card.module.css';
 
 interface CardProps {
     params: {
@@ -48,19 +48,19 @@ const Card: React.FC<CardProps> = ({ params }) => {
     };
 
     return (
-        <div className='pageContainer'>
+        <div className={styles.pageContainer}>
             <Navigation headerText={decodedCategoryName} />
-            <div className='cardContainer'>
+            <div className={styles.cardContainer}>
                 {characters.map((character) => (
                     <TinderCard
-                        className='swipe'
+                        className={styles.swipe}
                         key={character.name}
                         onSwipe={(dir) => swiped(dir, character.name)}
                         onCardLeftScreen={() => outOfFrame(character.name)}
                         preventSwipe={['up', 'down']}
                     >
                         <div
-                            className='cardWrapper'
+                            className={styles.cardWrapper}
                             onClick={() => openCard(character.name)}
                         >
                             <div
@@ -69,12 +69,16 @@ const Card: React.FC<CardProps> = ({ params }) => {
                                         // backgroundImage: 'url(' + character.url + ')',
                                     }
                                 }
-                                className='card'
+                                className={styles.card}
                             >
                                 {character.isOpened ? (
-                                    <h3 className='word'>{character.answer}</h3>
+                                    <h3 className={styles.word}>
+                                        {character.answer}
+                                    </h3>
                                 ) : (
-                                    <h3 className='word'>{character.name}</h3>
+                                    <h3 className={styles.word}>
+                                        {character.name}
+                                    </h3>
                                 )}
                             </div>
                         </div>
@@ -82,9 +86,9 @@ const Card: React.FC<CardProps> = ({ params }) => {
                 ))}
             </div>
             {lastDirection ? (
-                <h2 className='infoText'>You swiped {lastDirection}</h2>
+                <h2 className={styles.infoText}>You swiped {lastDirection}</h2>
             ) : (
-                <h2 className='infoText' />
+                <h2 className={styles.infoText} />
             )}
         </div>
     );
