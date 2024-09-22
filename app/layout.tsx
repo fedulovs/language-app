@@ -5,9 +5,9 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'Learn new words',
+    title: 'New Words Every Day',
     description: 'Language learning app',
-    manifest: '/manifest.json', // No idea if it works
+    manifest: '/manifest.json',
 };
 
 export default function RootLayout({
