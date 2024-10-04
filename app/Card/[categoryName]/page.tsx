@@ -1,11 +1,8 @@
-'use client';
-import React, { useState, useEffect } from 'react';
-import TinderCard from 'react-tinder-card';
 import { categories, Word } from '@/data/categories';
 import Navigation from '@/app/navigation/navigation';
-import styles from './card.module.css';
+import CardClient from './CardClient';
 
-interface CardProps {
+interface PageProps {
     params: {
         categoryName: string;
     };
@@ -17,87 +14,11 @@ export async function generateStaticParams() {
     }));
 }
 
-const Card: React.FC<CardProps> = ({ params }) => {
-    const [characters, setCharacters] = useState<Word[]>([]);
-    const [lastDirection, setLastDirection] = useState<string | undefined>();
-
-    // Decode the parameter to replace '%20' with spaces
-    const undecodedHeaderText = params.categoryName;
-    const decodedCategoryName = decodeURIComponent(undecodedHeaderText || '');
-
-    useEffect(() => {
-        const selectedCategory = categories.find(
-            (cat) => cat.category === decodedCategoryName
-        );
-        if (selectedCategory) {
-            setCharacters(selectedCategory.words);
-        }
-    }, [params.categoryName]);
-
-    const swiped = (direction: any, nameToDelete: any) => {
-        console.log('removing: ' + nameToDelete);
-        setLastDirection(direction);
-    };
-
-    const outOfFrame = (name: string) => {
-        console.log(name + ' left the screen!');
-    };
-
-    const openCard = (characterName: string): void => {
-        setCharacters((prevCharacters) =>
-            prevCharacters.map((character) =>
-                character.name === characterName
-                    ? { ...character, isOpened: !character.isOpened }
-                    : character
-            )
-        );
-    };
-
+export default function CardPage({ params }: PageProps) {
     return (
-        <div className={styles.pageContainer}>
-            <Navigation headerText={decodedCategoryName} />
-            <div className={styles.cardContainer}>
-                {characters.map((character) => (
-                    <TinderCard
-                        className={styles.swipe}
-                        key={character.name}
-                        onSwipe={(dir) => swiped(dir, character.name)}
-                        onCardLeftScreen={() => outOfFrame(character.name)}
-                        preventSwipe={['up', 'down']}
-                    >
-                        <div
-                            className={styles.cardWrapper}
-                            onClick={() => openCard(character.name)}
-                        >
-                            <div
-                                style={
-                                    {
-                                        // backgroundImage: 'url(' + character.url + ')',
-                                    }
-                                }
-                                className={styles.card}
-                            >
-                                {character.isOpened ? (
-                                    <h3 className={styles.word}>
-                                        {character.answer}
-                                    </h3>
-                                ) : (
-                                    <h3 className={styles.word}>
-                                        {character.name}
-                                    </h3>
-                                )}
-                            </div>
-                        </div>
-                    </TinderCard>
-                ))}
-            </div>
-            {lastDirection ? (
-                <h2 className={styles.infoText}>You swiped {lastDirection}</h2>
-            ) : (
-                <h2 className={styles.infoText} />
-            )}
+        <div>
+            <Navigation headerText={params.categoryName} />
+            <CardClient categoryName={params.categoryName} />
         </div>
     );
-};
-
-export default Card;
+}
