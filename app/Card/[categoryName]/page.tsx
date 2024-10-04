@@ -11,6 +11,12 @@ interface CardProps {
     };
 }
 
+export async function generateStaticParams() {
+    return categories.map((category) => ({
+        categoryName: category.category,
+    }));
+}
+
 const Card: React.FC<CardProps> = ({ params }) => {
     const [characters, setCharacters] = useState<Word[]>([]);
     const [lastDirection, setLastDirection] = useState<string | undefined>();
