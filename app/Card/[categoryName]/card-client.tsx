@@ -57,6 +57,8 @@ const CardClient: React.FC<CardClientProps> = ({ categoryName }) => {
                         <div
                             className={styles.cardWrapper}
                             onClick={() => openCard(character.name)}
+                            /* For mobile devices */
+                            onTouchEnd={() => openCard(character.name)}
                         >
                             <div className={styles.card}>
                                 {character.isOpened ? (

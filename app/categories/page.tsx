@@ -13,6 +13,7 @@ const Categories: React.FC = () => {
             <div className='categoryGrid'>
                 {categories.map((category) => (
                     <Link
+                        className='categoryLink'
                         href={`/card/${category.category}`}
                         key={category.category}
                     >

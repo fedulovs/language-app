@@ -28,3 +28,7 @@
     text-align: center;
     color: var(--color-white);
 }
+
+.categoryLink {
+    text-decoration: none;
+}
