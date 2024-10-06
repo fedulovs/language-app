@@ -1,6 +1,6 @@
 import { categories, Word } from '@/data/categories';
 import Navigation from '@/app/navigation/navigation';
-import CardClient from './CardClient';
+import CardClient from './card-client';
 
 interface PageProps {
     params: {
