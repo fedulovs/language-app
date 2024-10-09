@@ -1,24 +1,29 @@
 import React from 'react';
 import Link from 'next/link';
 import { categories } from '@/data/categories';
-import './style.css';
+import styles from './category.module.css';
 
 const Categories: React.FC = () => {
     return (
-        <div className='pageContainer'>
-            <div className='headerContainer'>
-                <h2 className='categoriesHeader'>Categories</h2>
+        <div className={styles.pageContainer}>
+            <div className={styles.headerContainer}>
+                <h2 className={styles.categoriesHeader}>Categories</h2>
             </div>
 
-            <div className='categoryGrid'>
+            <div className={styles.categoryGrid}>
                 {categories.map((category) => (
                     <Link
-                        className='categoryLink'
+                        className={styles.categoryLink}
                         href={`/card/${category.category}`}
                         key={category.category}
                     >
-                        <div className='category' key={category.category}>
-                            <p className='categoryName'>{category.category}</p>
+                        <div
+                            className={styles.category}
+                            key={category.category}
+                        >
+                            <p className={styles.categoryName}>
+                                {category.category}
+                            </p>
                         </div>
                     </Link>
                 ))}
